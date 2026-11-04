@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screening Room</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 48px 16px 96px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            background: radial-gradient(ellipse at top, #1c2a3a 0%, #0b1016 48%, #07090c 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #ffffff;
+        }
+        @font-face {
+            font-family: 'Great Vibes';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(assets/fonts/greatvibes-RWmMoKWR9v4ksMfaWd_JN9XFiaQoDmlr.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+    </style>
+</head>
+<body>
+
+<style>
+    /* 主容器：绝对防吞字，保留底部60px空隙给我们的新角标腾位置 */
+    .elegant-cinematic-container {
+        position: relative;
+        width: 100%;
+        max-width: 480px; /* 稍微加宽一点，让右下角角标有舒展空间 */
+        margin: 100px auto; 
+        padding: 20px 0 60px 0;
+    }
+
+    /* 银白色花体水印：位置上移，错开首行正文，解决看不清的问题 */
+    .floral-watermark {
+        position: absolute;
+        top: -45px; /* 【修改】：从-20px调到-45px，大幅上移 */
+        left: -15px;
+        font-family: 'Great Vibes', cursive;
+        font-size: 68px; /* 稍微收缩一点点字号，显得更聚拢 */
+        color: rgba(220, 225, 235, 0.22); /* 银白质感 */
+        text-shadow: 0 0 8px rgba(220, 225, 235, 0.15); /* 模拟金属光泽 */
+        pointer-events: none;
+        white-space: nowrap;
+        z-index: 0;
+    }
+
+    /* 正文主体：极简、极细、清冷 */
+    .poem-elegant-text {
+        position: relative;
+        z-index: 1;
+        font-family: 'Songti SC', 'STSong', 'STZhongsong', serif; 
+        font-weight: 200; 
+        font-size: 14px; 
+        color: rgba(230, 235, 240, 0.65); 
+        line-height: 2.8; 
+        letter-spacing: 0.6px; 
+        
+        /* 左侧杂志细线 */
+        border-left: 1px solid rgba(255, 255, 255, 0.15);
+        padding-left: 30px; 
+        margin-left: 20px;
+        /* 【修改】：顶部增加留白，让首句向下退让，避开花体最密集的地方 */
+        padding-top: 35px; 
+        padding-bottom: 20px; 
+    }
+
+    .poem-para {
+        margin: 0 0 25px 0; 
+        transition: color 0.8s ease; 
+    }
+    
+    .indent-line {
+        display: block; 
+        padding-left: 2.5em;
+    }
+
+    /* 点睛之笔结尾 */
+    .poem-elegant-ending {
+        display: block; 
+        margin-top: 15px;
+        padding-left: 4em;
+        color: rgba(255, 255, 255, 0.9); 
+        font-weight: 300;
+        letter-spacing: 1.5px; 
+    }
+
+    /* 【新增】：填补右下角空白的高级印刷感角标 */
+    .cinematic-editorial-stamp {
+        position: absolute;
+        bottom: 10px; /* 卡在容器底部偏右的位置 */
+        right: 15px;
+        font-family: Arial, Helvetica, sans-serif; /* 用干脆的无衬线体对抗诗歌的衬线体，形成高级冲突美 */
+        font-size: 9px; /* 极其微小，不会喧宾夺主 */
+        color: rgba(255, 255, 255, 0.25); /* 淡淡的一抹灰白 */
+        letter-spacing: 3px;
+        text-align: right;
+    }
+
+    /* 给角标上方加一条极短的细横线，强化设计感 */
+    .cinematic-editorial-stamp::before {
+        content: '';
+        display: block;
+        width: 25px; /* 一条25像素的极细短线 */
+        height: 1px;
+        background: rgba(255, 255, 255, 0.25);
+        margin-bottom: 6px; /* 线和字距的距离 */
+        margin-left: auto; /* 让线靠右对齐 */
+    }
+
+</style>
+
+<!-- 嵌入网页的结构 -->
+<div class="elegant-cinematic-container">
+    <div class="floral-watermark">Campfire of the Sun</div>
+    
+    <div class="poem-elegant-text">
+        <div class="poem-para">
+            Feeling the warmth of her hands,<br>
+            <span class="indent-line">I think this is a bonfire that puts the sun to shame.</span>
+        </div>
+        
+        <div class="poem-para">
+            This place will warm me, feed me, and care for me.<br>
+            <span class="indent-line">I will hold fast to the pulse in these hands and heed no other rhythm.</span>
+        </div>
+        
+        <div class="poem-para">
+            The world will still come and go with the tides of time,<br>
+            and my future<br>
+            <span class="poem-elegant-ending">rests in the palm of her hand.</span>
+        </div>
+    </div>
+
+    <!-- 补足右下角画面的高级印记 -->
+    <div class="cinematic-editorial-stamp">
+        [ RECORD . 001 ]
+    </div>
+</div>
+<style>
+    /* 🎵 唯美主题定义 */
+    :root {
+        --dream-theme: #AEE2FF; 
+        /* 替换你想要展示的唯美图片 */
+        --memory-img: url('assets/images/6c3d6c53-94d3-40fa-9d90-4888c76a1955.jpg');
+    }
+
+    /* 居中垂直大容器 —— [✅新增了 padding 强制撑开底部防丢字] */
+    .lumeow-memory-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin: 40px 0;
+        padding-bottom: 40px; /* 预留安全底部空间，防止下方的文字被环境裁切 */
+        font-family: 'Songti SC', 'STSong', serif;
+        perspective: 1000px; 
+    }
+
+    /* 隐藏的魔法开关 */
+    #lumeow-split-toggle {
+        display: none;
+    }
+
+    /* 画廊相框本体 (即上半部分的图片) */
+    .lumeow-memory-gallery {
+        position: relative;
+        width: 90%;
+        max-width: 320px; 
+        height: 460px; 
+        cursor: pointer;
+        display: flex;
+        -webkit-tap-highlight-color: transparent;
+        z-index: 10; 
+        /* [✅新增] 给底部留出实体占位空间，让提示语不在此框外流浪，防止消失 */
+        margin-bottom: 40px; 
+    }
+
+    /* --- [ 悬浮提示文案 ] --- */
+    .lumeow-m-hint {
+        position: absolute;
+        bottom: -35px; /* 让字悬浮在图片下方围栏里 */
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.4);
+        letter-spacing: 1px;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        pointer-events: none;
+    }
+    
+    .lumeow-memory-gallery:hover .lumeow-m-hint {
+        color: var(--dream-theme);
+        text-shadow: 0 0 10px var(--dream-theme);
+        transform: translateY(-2px);
+    }
+
+    /* --- [ 解构图片核心：将图分为4个切片 ] --- */
+    .lumeow-m-piece {
+        width: 25%; 
+        height: 100%;
+        background-image: var(--memory-img);
+        background-size: 400% 100%; 
+        background-repeat: no-repeat;
+        position: relative;
+        z-index: 2;
+        transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                    border-radius 0.9s ease, 
+                    box-shadow 0.9s ease,
+                    filter 0.9s ease;
+    }
+
+    .lumeow-m-piece:nth-child(1) { background-position: 0% center; border-radius: 16px 0 0 16px; }
+    .lumeow-m-piece:nth-child(2) { background-position: 33.33% center; }
+    .lumeow-m-piece:nth-child(3) { background-position: 66.66% center; }
+    .lumeow-m-piece:nth-child(4) { background-position: 100% center; border-radius: 0 16px 16px 0; }
+
+    /* 初始的底座深邃阴影 */
+    .lumeow-memory-gallery::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        border-radius: 16px;
+        box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
+        transition: opacity 0.5s ease;
+        z-index: 1;
+    }
+
+    /* --- [ 下方展开的唯美文案区 ] --- */
+    .lumeow-text-reveal {
+        display: grid;
+        grid-template-rows: 0fr; /* 默认高度为0的黑魔法 */
+        width: 100%;
+        max-width: 400px;
+        opacity: 0;
+        
+        transition: grid-template-rows 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                    opacity 0.4s ease;
+    }
+
+    .lumeow-text-reveal-inner {
+        min-height: 0; 
+        overflow: hidden;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 14px;
+        letter-spacing: 0.4px;
+        line-height: 2;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        /* 给文字内部增加上下安全边距 */
+        padding: 0 20px;
+    }
+
+    /* 文案区顶部的水波分割线 */
+    .lumeow-tr-divider {
+        height: 1px;
+        width: 60%;
+        margin: 5px auto 25px auto;
+        background: radial-gradient(circle, var(--dream-theme) 0%, transparent 100%);
+        opacity: 0.6;
+        box-shadow: 0 0 8px var(--dream-theme);
+    }
+
+    .lumeow-text-reveal-inner span {
+        display: block;
+        color: var(--dream-theme);
+        font-size: 12px;
+        margin-top: 15px; /* 给下方人名留空 */
+        margin-bottom: 20px; /* [✅新增] 给最底部防裁硬支撑 */
+        font-style: italic;
+    }
+
+    /* ==================================================== */
+    /* 💥 动作触发：当被点击散开时的状态 */
+    /* ==================================================== */
+
+    /* 1. 隐藏阴影与提示文字 */
+    #lumeow-split-toggle:checked ~ .lumeow-memory-gallery::before,
+    #lumeow-split-toggle:checked ~ .lumeow-memory-gallery .lumeow-m-hint {
+        opacity: 0;
+    }
+
+    /* 2. 照片切片分离飘向下方与两侧 */
+    #lumeow-split-toggle:checked ~ .lumeow-memory-gallery .lumeow-m-piece {
+        border-radius: 8px; 
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+        filter: brightness(0.7) contrast(1.1); 
+    }
+
+    #lumeow-split-toggle:checked ~ .lumeow-memory-gallery .lumeow-m-piece:nth-child(1) {
+        transform: translate(-30px, -20px) rotate(-6deg) scale(0.95);
+    }
+    #lumeow-split-toggle:checked ~ .lumeow-memory-gallery .lumeow-m-piece:nth-child(2) {
+        transform: translate(-10px, 15px) rotate(3deg) scale(0.95);
+    }
+    #lumeow-split-toggle:checked ~ .lumeow-memory-gallery .lumeow-m-piece:nth-child(3) {
+        transform: translate(10px, -10px) rotate(-2deg) scale(0.95);
+    }
+    #lumeow-split-toggle:checked ~ .lumeow-memory-gallery .lumeow-m-piece:nth-child(4) {
+        transform: translate(30px, 25px) rotate(5deg) scale(0.95);
+    }
+
+    /* 3. 让下方的文字优雅地延展 */
+    #lumeow-split-toggle:checked ~ .lumeow-text-reveal {
+        grid-template-rows: 1fr; /* 平滑展开实体高度 */
+        opacity: 1;
+        
+        transition: grid-template-rows 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                    opacity 0.8s ease 0.2s; /* 慢淡入 */
+    }
+
+</style>
+
+<!-- =================HTML部分================= -->
+<div class="lumeow-memory-wrapper">
+    <!-- 隐形状态机开关 -->
+    <input type="checkbox" id="lumeow-split-toggle">
+    
+    <!-- 视觉相框主体 (点击此区域触发) -->
+    <label for="lumeow-split-toggle" class="lumeow-memory-gallery">
+        <div class="lumeow-m-piece"></div>
+        <div class="lumeow-m-piece"></div>
+        <div class="lumeow-m-piece"></div>
+        <div class="lumeow-m-piece"></div>
+
+        <!-- 悬浮提示句 (因为画廊预留了足够高的底部边距，现在绝对安全) -->
+        <div class="lumeow-m-hint">✧ Touch to strip away the disguise ✧</div>
+    </label>
+
+    <!-- 被隐藏在下方的相片唯美真言 -->
+    <div class="lumeow-text-reveal">
+        <div class="lumeow-text-reveal-inner">
+            <!-- 唯美光晕分割线 -->
+            <div class="lumeow-tr-divider"></div>
+            
+            “If you tear open the perfect script,<br>every line beneath it is a calculation I made about you.”
+            <span>— Heartbeat Capture System: Collected Fragments</span>
+        </div>
+    </div>
+</div>
+<style>
+    /* 🎵 唯美深海冷调，保留高级感 */
+    :root {
+        --song-theme: #BEE3F8;
+        --song-alert: #FBB6CE; /* 阴暗面的警示微红 */
+        --font-serif: 'Songti SC', 'STSong', serif;
+    }
+
+    /* 基础容器 */
+    .lumeow-char-wrapper {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 40px 0;
+        font-family: var(--font-serif);
+    }
+
+    /* 外层主面板：毛玻璃质感与固定高度 */
+    .lumeow-char-card {
+        width: 95%;
+        max-width: 500px;
+        background: linear-gradient(145deg, rgba(15, 20, 30, 0.85) 0%, rgba(5, 8, 12, 0.95) 100%);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border-radius: 20px;
+        border: 1px solid rgba(190, 227, 248, 0.1);
+        box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9), 
+                    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        animation: songBloom 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes songBloom {
+        0% { opacity: 0; transform: translateY(20px); filter: blur(8px); }
+        100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    /* =========================================
+       完全恢复第二版的版头：精致小图与身份牌
+       ========================================= */
+    .song-header-zone {
+        padding: 30px 30px 20px 30px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        position: relative;
+        background: linear-gradient(to bottom, rgba(190, 227, 248, 0.05), transparent);
+        flex-shrink: 0; /* 防止被滚动条挤压 */
+    }
+
+    /* 底部水波纹分割线 */
+    .song-header-zone::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 10%; width: 80%; height: 1px;
+        background: radial-gradient(circle, var(--song-theme) 0%, transparent 100%);
+        box-shadow: 0 0 8px var(--song-theme);
+        opacity: 0.4;
+    }
+
+    /* 精致头像框 */
+    .song-avatar-box {
+        position: relative;
+        width: 75px; 
+        height: 75px;
+        border-radius: 12px;
+        padding: 2px;
+        background: linear-gradient(135deg, rgba(190,227,248,0.5), transparent);
+        box-shadow: 0 0 15px rgba(190, 227, 248, 0.15);
+    }
+    .song-avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        object-fit: cover;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    /* 姓名与标签 */
+    .song-name-box {
+        flex: 1;
+    }
+    .song-name {
+        font-size: 22px;
+        color: #fff;
+        line-height: 1.2;
+        letter-spacing: 3px;
+        text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+        margin-bottom: 6px;
+    }
+    .song-name span {
+        font-size: 11px;
+        color: var(--song-theme);
+        font-style: italic;
+        letter-spacing: 1px;
+        opacity: 0.8;
+        margin-left: 8px;
+    }
+    .song-basic-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    .song-tag {
+        font-size: 10px;
+        color: rgba(255,255,255,0.7);
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        padding: 2px 8px;
+        border-radius: 8px;
+        letter-spacing: 1px;
+    }
+
+    /* =========================================
+       内部视野区（保留丝滑文字排版）
+       ========================================= */
+    .song-scroll-view {
+        max-height: 500px;
+        overflow-y: auto;
+        padding: 20px 30px 40px 30px;
+        /* 底部渐变羽化遮罩 */
+        -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+    }
+
+    /* 绝美极细滚动槽 */
+    .song-scroll-view::-webkit-scrollbar { width: 3px; }
+    .song-scroll-view::-webkit-scrollbar-track { background: transparent; }
+    .song-scroll-view::-webkit-scrollbar-thumb { 
+        background: rgba(190,227,248,0.15); 
+        border-radius: 3px; 
+    }
+    .song-scroll-view::-webkit-scrollbar-thumb:hover { background: var(--song-theme); }
+
+    /* 散文式段落标题 */
+    .song-p-title {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.4);
+        letter-spacing: 1.5px;
+        margin: 25px 0 15px 0;
+        display: flex;
+        align-items: center;
+    }
+    .song-p-title::before {
+        content: '❖';
+        color: var(--song-theme);
+        margin-right: 6px;
+        font-size: 12px;
+        opacity: 0.7;
+    }
+
+    /* 散文排版：不再使用商务表格，统一使用小说阅读段落排布 */
+    .song-prose {
+        font-size: 13px;
+        line-height: 2;
+        color: rgba(255, 255, 255, 0.7);
+        text-align: justify;
+        margin-bottom: 20px;
+    }
+    .song-prose strong {
+        font-weight: normal;
+        color: var(--song-theme);
+        border-bottom: 1px solid rgba(190, 227, 248, 0.3);
+        margin-right: 4px;
+        padding-bottom: 2px;
+    }
+    .song-prose span { background: rgba(190,227,248,0.06); padding: 0 4px; border-radius: 2px; }
+
+    /* 剧本折叠 (极简信封风) */
+    .song-fold { 
+        border-top: 1px dotted rgba(255,255,255,0.1); 
+        margin: 15px 0 25px 0; 
+        padding-top: 15px;
+    }
+    .song-fold summary { 
+        font-size: 11px; color: var(--song-theme); cursor: pointer; opacity: 0.7; list-style: none;
+        letter-spacing: 2px; text-align: center;
+    }
+    .song-fold summary::-webkit-details-marker { display: none; }
+    .song-fold summary:hover { opacity: 1; background: rgba(190, 227, 248, 0.05); border-radius: 4px;}
+    .song-fold-content {
+        margin-top: 15px; font-size: 12.5px; line-height: 1.9; color: rgba(255,255,255,0.65);
+        padding: 15px; background: rgba(0,0,0,0.2); border-radius: 8px; border: 1px solid rgba(190, 227, 248, 0.05);
+    }
+    .song-fold-content em { color: var(--song-theme); font-style: normal; margin-right: 4px; display: block; font-size: 11px; margin-top: 8px;}
+    .song-fold-content em:first-child { margin-top: 0; }
+
+    /* =========================================
+       核心交互：沉浸式连贯阅读的【行为侧写】
+       解决"左看右看"的阅读障碍问题，原位丝滑浮现
+       ========================================= */
+    .song-act-box {
+        margin-bottom: 25px;
+        position: relative;
+        cursor: pointer;
+    }
+    
+    /* 情境引导句（固定不变） */
+    .song-act-scene {
+        font-size: 13px;
+        color: #fff;
+        line-height: 1.6;
+        margin-bottom: 8px;
+    }
+    .song-act-scene::before {
+        content: "✦ "; color: var(--song-theme); font-size: 10px;
+    }
+
+    /* 重叠文段区容器 */
+    .song-act-text {
+        position: relative;
+        padding-left: 18px; /* 缩进产生层次感 */
+        border-left: 1px dashed rgba(190,227,248,0.2);
+        min-height: 65px;
+    }
+
+    /* 表象区（伪装的绿茶期） */
+    .act-surface {
+        font-size: 12.5px;
+        line-height: 1.8;
+        color: rgba(255,255,255,0.6);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-origin: left top;
+    }
+
+    /* 真实区（暗藏的疯批偏执），默认绝对定位盖在表面上并隐藏 */
+    .act-abyss {
+        position: absolute;
+        top: 0; left: 18px; right: 0;
+        font-size: 12.5px;
+        line-height: 1.8;
+        color: rgba(255,255,255,0.9);
+        opacity: 0;
+        transform: translateY(5px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        text-shadow: 0 0 10px rgba(0,0,0,0.8);
+    }
+    .act-abyss b { font-weight: normal; color: var(--song-alert); font-style: italic; }
+
+    /* 交互触发：一褪一现，眼睛完全不需要移位 */
+    .song-act-box:hover .act-surface {
+        opacity: 0.1;
+        filter: blur(2px);
+    }
+    .song-act-box:hover .act-abyss {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .song-act-box:hover .song-act-text {
+        border-left-color: var(--song-alert); /* 左侧指示线随底色微红变色 */
+    }
+
+</style>
+
+<!-- =================HTML部分================= -->
+<div class="lumeow-char-wrapper">
+    <div class="lumeow-char-card">
+        
+        <!-- 【完美保留的】顶部：精致头像与档案牌 -->
+        <div class="song-header-zone">
+            <div class="song-avatar-box">
+                <img class="song-avatar" src="assets/images/6c3d6c53-94d3-40fa-9d90-4888c76a1955.jpg" alt="Portrait">
+            </div>
+            <div class="song-name-box">
+                <div class="song-name">Song Juefei</div>
+                <div class="song-basic-tags">
+                    <div class="song-tag">Age 27</div>
+                    <div class="song-tag">185+ Broad shoulders, narrow waist</div>
+                    <div class="song-tag">April / Aries</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 内部视野 (包含滚动条与舒适的小说排版) -->
+        <div class="song-scroll-view">
+            
+            <div class="song-p-title">About Song Juefei</div>
+            <div class="song-prose">
+                <strong>Habit</strong>He dislikes sweet potatoes and instant noodles. After his father jumped from a building when he was eighteen, those became some of the few foods he could afford. The only thing that kept him alive through that sunless, bitter cold was videos of her dance dramas.
+                <br>
+                <strong>Appearance</strong>To the world, he is the head of a conglomerate in a dark bespoke suit, ruthless to the bone. Only when he sees her does he deliberately shed that pressure, change into <span>the clothes she likes</span>, and package himself as a harmless subordinate.
+                <br>
+                <strong>What he fears</strong>He fears most that she will look at him as a stranger, or even with disgust. He fears she will truly say “I do” to her current boyfriend. Above all, he loathes the loss of control in being powerless to protect her.
+            </div>
+
+            <!-- 信笺式隐藏履历 -->
+            <details class="song-fold">
+                <summary>About those seven years</summary>
+                <div class="song-fold-content">
+                    <em>[ Fond memories ]</em>
+                    You and Song Juefei were the perfect couple at Changning Affiliated High School. He held a recommendation offer from one of the country’s top universities, and you, ranked first, had earned admission certificates in classical dance from the three leading arts academies. The future looked bright. Then, on the eve of the college entrance exam, his birth father, buried in massive loan-shark debt, jumped from a building. The collectors blocked the road you took home from school every day. To keep you from being hurt, he was pinned in the muddy alley and had his ribs broken under their boots. From that day, Song Juefei chose to disappear. His WeChat was deleted, his phone disconnected, his social accounts erased, and the house emptied overnight. He even gave up the recommendation slot. He vanished as if from the face of the earth, and no one knew where he had gone.<br>
+                    <em>[ Reborn from the ashes ]</em>
+                    In the seven years he was forced to leave you, Song Juefei shed every trace of a boy’s softness. He knew that without absolute power to defy his origins, he did not even deserve to stand beside you. Through countless days and nights he became the “living Yama” the industry feared: decisive, lethal, and rarely showing the blade. On nights spent calculating people’s hearts, or rainy days when old wounds ached, what kept him from becoming a monster entirely was an old photo of you at the bottom of a drawer. He climbed without pause and polished his methods until they were smooth and mild. He gathered wealth and power for one purpose: so that when he returned, he could easily shield you from every storm in the world.<br>
+                    <em>[ The year we met again ]</em>
+                    When Song Juefei stood before you again, in a top-tier bespoke suit, he had become an untouchable man above you. Facing a you who had already let the past go, he advanced step by step and slipped, soundlessly, into every gap in her life. Like a wolf in sheep’s clothing, he used an exquisitely considerate, two-faced tenderness, and at last opened his arms with a smile to welcome his deity as she willingly fell into his net.
+                </div>
+            </details>
+
+            <div class="song-p-title" style="margin-top: 30px;">Two sides of the mirror: a behavioral profile</div>
+            <div class="song-prose" style="font-size: 11px; color: rgba(255,255,255,0.4); margin-top: -10px;">
+                * Hover, or touch, a passage to peel away the warmth and see what lies beneath.
+            </div>
+            
+            <!-- 场景交互：原位重叠，摒弃左右跳视 -->
+            <div class="song-act-box">
+                <div class="song-act-scene">When you are happily talking with someone else—</div>
+                <div class="song-act-text">
+                    <div class="act-surface">
+                        However jealous he is, he will never interrupt you. He waits quietly out of sight, impeccably composed, mild and unhurried, until you end the conversation yourself.
+                    </div>
+                    <div class="act-abyss">
+                        He holds himself back with everything he has. Behind him, the <b>veins stand out</b> on his hand from the strain, and his fingers nearly crush whatever he is holding. Jealousy and greed tear silently at his reason.
+                    </div>
+                </div>
+            </div>
+
+            <div class="song-act-box">
+                <div class="song-act-scene">When she reaches up, as if it were natural, to straighten his collar—</div>
+                <div class="song-act-text">
+                    <div class="act-surface">
+                        He bends his tall frame to her at once, lowers his eyes, and murmurs to please her: “You used to fix my collar like this. I’m sorry. I’ve grown greedy all of a sudden. I wish time would slow down…”
+                    </div>
+                    <div class="act-abyss">
+                        He hardly dares to breathe more deeply. Those usually unreadable eyes do nothing now but <b>gaze at her with greed</b>. His throat works as he forces down the urge to lock her in his arms and kiss her.
+                    </div>
+                </div>
+            </div>
+
+            <div class="song-act-box">
+                <div class="song-act-scene">When they are alone and he senses even a trace of instinctive recoil—</div>
+                <div class="song-act-text">
+                    <div class="act-surface">
+                        He draws back of his own accord, as if it were the most natural thing, lowers his head, and smiles bitterly at himself: “I’m sorry. I crossed a line. I forgot I lost the right long ago. Don’t be angry with me, all right?”
+                    </div>
+                    <div class="act-abyss">
+                        He knows the higher tactic of advancing by retreating. He knows exactly how to package himself as <b>a perfectly considerate companion who yields and stays low</b>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="song-act-box">
+                <div class="song-act-scene">When she cries, hurt by her current boyfriend—</div>
+                <div class="song-act-text">
+                    <div class="act-surface">
+                        He sets aside every aura of rank and pressure, drops to one knee, and wipes her tears with a clean handkerchief: “Cry. It’s all right. I’m here, and no one can see. I will always love you and treasure you.”
+                    </div>
+                    <div class="act-abyss">
+                        So what if he is the other man? So what if it cannot bear the light? <b>“I don’t care how filthy or base the path is, so long as in the end you can belong only to me.”</b>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+```
+</body>
+</html>
